@@ -2,12 +2,11 @@
 
 Native bindings to [aspell](http://aspell.net/) for Node.js.
 
-## Using
+## Usage
 
 ```javascript
-const SpellChecker = require('node-aspell').SpellChecker;
-const checker = new SpellChecker();
-console.log(checker.isMisspelled("pncils"));
+const spellChecker = require('node-aspell');
+console.log(spellChecker.isMisspelled("pncils"));
 ```
 
 ### spellChecker.isMisspelled(word)
@@ -23,6 +22,7 @@ Returns `true` if the word is misspelled, `false` otherwise.
 Check if a word is misspelled asynchronously.
 
 `word` - String word to check.
+
 `callback` - Function to call with result callback(err, misspelled)
 
 ### spellChecker.getCorrectionsForMisspelling(word)
@@ -38,6 +38,7 @@ Returns a non-null but possibly empty array of string corrections.
 Get the corrections for a misspelled word asynchronously.
 
 `word` - String word to get corrections for.
+
 `callback` - Function to call with result
 
 ### new Spellchecker(language)
