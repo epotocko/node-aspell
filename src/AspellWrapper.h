@@ -1,6 +1,7 @@
 #include <aspell.h>
 #include <string>
 #include <vector>
+#include <mutex>
 #pragma once
 
 // Wrapper around aspell C API to map types to std library types
@@ -10,6 +11,7 @@ class AspellWrapper {
 	private:
 		AspellConfig* aspellConfig;
 		AspellSpeller* spellChecker;
+		std::mutex correctionsLock;
 
 	public:
 		AspellWrapper(std::string lang = "");

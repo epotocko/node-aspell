@@ -57,13 +57,13 @@ describe('SpellChecker', function() {
 		});
 		it('describe multiple suggestions for misspellings async', function(done) {
 			let c = new SpellChecker();
-			let words = ['tble', 'bateries', 'fost', 'aples', 'treth'];
-			let corrections = ['table', 'batteries', 'fast', 'apples', 'truth']
+			let words = ['aaa', 'bateries', 'fost', 'aples', 'treth', 'fisj', 'l0ve'];
+			let corrections = ['AAA', 'batteries', 'fast', 'apples', 'truth', 'fish', 'love'];
 			let promises = [];
 			for(let word of words) {
-				promises.push(new Promise((resolve, reject) => { 
-					c.getCorrectionsForMisspellingAsync(word, (err, misspelled) => {
-						err ? reject(err) : resolve(misspelled);
+				promises.push(new Promise((resolve, reject) => {
+					c.getCorrectionsForMisspellingAsync(word, (err, suggestions) => {
+						err ? reject(err) : resolve(suggestions);
 					});
 				}));
 			}

@@ -29,6 +29,9 @@ bool AspellWrapper::isMisspelled(const std::string word) {
 
 // Returns a list of suggestions for a misspelled word
 std::vector<std::string> AspellWrapper::getCorrectionsForMisspelling(const std::string word) {
+	// Need a lock for aspell_speller_suggest because:
+	// "The word list returned by suggest is only valid until the next call to suggest."
+	std::lock_guard<std::mutex> lock(this->correctionsLock);
 	const AspellWordList* suggestions = aspell_speller_suggest(this->spellChecker, word.c_str(), -1);
 	AspellStringEnumeration* elements = aspell_word_list_elements(suggestions);
 	const char* suggestion;
