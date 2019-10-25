@@ -2,10 +2,12 @@
 #include "AspellWrapper.h"
 
 // Initialize aspell objects
-AspellWrapper::AspellWrapper(std::string lang) {
+// http://aspell.net/man-html/The-Options.html
+AspellWrapper::AspellWrapper(const std::map<std::string, std::string> options) {
 	this->aspellConfig = new_aspell_config();
-	if(lang.length() > 0) {
-		aspell_config_replace(this->aspellConfig, "lang", lang.c_str());
+	// Set each option in the options map
+	for(auto& option : options) {
+		aspell_config_replace(this->aspellConfig, option.first.c_str(), option.second.c_str());
 	}
 	AspellCanHaveError* possibleError = new_aspell_speller(this->aspellConfig);
 	if (aspell_error_number(possibleError) != 0) {

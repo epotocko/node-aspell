@@ -1,7 +1,35 @@
 const assert = require('assert');
 const SpellChecker = require('../index.js').Spellchecker;
 
+// Unit tests assume aspell english and spanish dictionaries are installed
+// apt-get install -y libaspell-dev aspell aspell-en aspell-es
 describe('SpellChecker', function() {
+	describe('#()', function() {
+		it('handles bad language', function() {
+			assert.throws(() => {
+				new SpellChecker({ lang: 'asdfasdf' });
+			}, /No word lists can be found/);
+			assert.throws(() => {
+				new SpellChecker('asdfasdf');
+			}, /No word lists can be found/);
+		});
+		it('handles alternate language', function() {
+			let c = new SpellChecker('es');
+			assert.equal(c.isMisspelled('gato'), false);
+			c = new SpellChecker({ lang: 'es', encoding: 'utf-8' });
+			assert.equal(c.isMisspelled('antibiótico'), false);
+			c = new SpellChecker('en_US');
+			assert.equal(c.isMisspelled('gato'), true);
+		});
+		it('handles alternate dictionary', () => {
+			let c = new SpellChecker({ 
+				'master': 'es.rws',
+				'dict-dir': '/var/lib/aspell',
+				'encoding': 'utf-8'
+			});
+			assert.equal(c.isMisspelled('antibiótico'), false);
+		});
+	});
 	describe('#isMisspelled()', function() {
 		it('detects correctly spelled words', function() {
 			let c = new SpellChecker();

@@ -41,10 +41,18 @@ Get the corrections for a misspelled word asynchronously.
 
 `callback` - Function to call with result
 
-### new Spellchecker(language)
+### new Spellchecker(options)
 
-In addition to the above functions that are used on a default instance, a new instance of SpellChecker can be instantiated with the use of the `new` operator. The same methods are available with the instance but the language can be changed independently from the default instance.
+In addition to the above functions that are used on a default instance, a new instance of SpellChecker can be instantiated with the use of the `new` operator. The same methods are available with the instance but the language/dictionary can be changed independently from the default instance. See the aspell options documentation for a full list of options: http://aspell.net/man-html/The-Options.html
 
 ```javascript
 const checker = new SpellChecker.Spellchecker("en_US");
 ```
+
+## Alternatives
+These packages spawn a separate aspell process and parse the output:
+
+[aspell](https://www.npmjs.com/package/aspell)
+
+[aspell-stream](https://www.npmjs.com/package/aspell-stream)
+

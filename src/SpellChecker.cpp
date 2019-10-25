@@ -26,16 +26,26 @@ SpellChecker::SpellChecker(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Sp
 	Napi::Env env = info.Env();
 	Napi::HandleScope scope(env);
 	try {
-		if(info.Length() > 0) {
-			if(!info[0].IsString()) {
-				Napi::TypeError::New(env, "Expected string for language argument").ThrowAsJavaScriptException();
+		std::map<std::string, std::string> options;
+		if(info.Length() > 0) {	
+			if(info[0].IsString()) {
+				std::string language = info[0].As<Napi::String>();
+				options["lang"] = language;
 			}
-			std::string language = info[0].As<Napi::String>();
-			this->aspell = new AspellWrapper(language);
+			else if(info[0].IsObject()) { 
+				Napi::Object opts = info[0].As<Napi::Object>();
+				Napi::Array props = opts.GetPropertyNames();
+				for(uint32_t i = 0; i < props.Length(); i++) {
+					std::string propName = ((Napi::Value)props[i]).As<Napi::String>();
+					Napi::Value value = opts[propName];
+					options[propName] = (std::string)value.As<Napi::String>();
+				}
+			}
+			else {
+				Napi::TypeError::New(env, "Expected string or object for first argument").ThrowAsJavaScriptException();
+			}
 		}
-		else {
-			this->aspell = new AspellWrapper();
-		}
+		this->aspell = new AspellWrapper(options);
 	}
 	catch(std::runtime_error& e) {
 		Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();

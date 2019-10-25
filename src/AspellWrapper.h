@@ -1,6 +1,7 @@
 #include <aspell.h>
 #include <string>
 #include <vector>
+#include <map>
 #include <mutex>
 #pragma once
 
@@ -14,7 +15,7 @@ class AspellWrapper {
 		std::mutex correctionsLock;
 
 	public:
-		AspellWrapper(std::string lang = "");
+		AspellWrapper(const std::map<std::string, std::string>);
 		~AspellWrapper();
 		bool isMisspelled(const std::string);
 		std::vector<std::string> getCorrectionsForMisspelling(const std::string);
