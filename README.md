@@ -1,12 +1,13 @@
 # aspell Node Module
 
-Native bindings to [aspell](http://aspell.net/) for Node.js.
+Native bindings to [aspell](http://aspell.net/) spell checking library for Node.js.
 
 ## Usage
 
 ```javascript
 const spellChecker = require('node-aspell');
 console.log(spellChecker.isMisspelled("pncils"));
+console.log(spellChecker.getCorrectionsForMisspelling("pncils"));
 ```
 
 ### spellChecker.isMisspelled(word)
@@ -46,6 +47,12 @@ Get the corrections for a misspelled word asynchronously.
 In addition to the above functions that are used on a default instance, a new instance of SpellChecker can be instantiated with the use of the `new` operator. The same methods are available with the instance but the language/dictionary can be changed independently from the default instance. See the aspell options documentation for a full list of options: http://aspell.net/man-html/The-Options.html
 
 ```javascript
+const checker = new SpellChecker.Spellchecker({ lang: "es", encoding: "utf-8" });
+const checker = new SpellChecker.Spellchecker({
+	'master': 'es.rws',
+	'dict-dir': '/var/lib/aspell',
+	'encoding': 'utf-8'
+});
 const checker = new SpellChecker.Spellchecker("en_US");
 ```
 
