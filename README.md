@@ -2,6 +2,11 @@
 
 Native bindings to [aspell](http://aspell.net/) spell checking library for Node.js.
 
+## Installation
+```bash
+npm install node-aspell
+```
+
 ## Usage
 
 ```javascript
