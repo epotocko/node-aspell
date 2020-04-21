@@ -48,6 +48,7 @@ SpellChecker::SpellChecker(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Sp
 		this->aspell = new AspellWrapper(options);
 	}
 	catch(std::runtime_error& e) {
+		this->aspell = NULL;
 		Napi::Error::New(env, e.what()).ThrowAsJavaScriptException();
 	}
 }
@@ -55,6 +56,7 @@ SpellChecker::SpellChecker(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Sp
 SpellChecker::~SpellChecker() {
 	if(this->aspell != NULL) {
 		delete this->aspell;
+		this->aspell = NULL;
 	}
 }
 

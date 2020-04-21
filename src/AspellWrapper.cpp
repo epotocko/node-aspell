@@ -11,6 +11,7 @@ AspellWrapper::AspellWrapper(const std::map<std::string, std::string> options) {
 	}
 	AspellCanHaveError* possibleError = new_aspell_speller(this->aspellConfig);
 	if (aspell_error_number(possibleError) != 0) {
+		delete_aspell_config(this->aspellConfig);
 		throw std::runtime_error(aspell_error_message(possibleError));
 	}
 	else {
@@ -20,8 +21,14 @@ AspellWrapper::AspellWrapper(const std::map<std::string, std::string> options) {
 
 // Free memory used by aspell
 AspellWrapper::~AspellWrapper() {
-	delete_aspell_speller(this->spellChecker);
-	delete_aspell_config(this->aspellConfig);
+	if(this->spellChecker != NULL) {
+		delete_aspell_speller(this->spellChecker);
+		this->spellChecker = NULL;
+	}
+	if(this->aspellConfig != NULL) {
+		delete_aspell_config(this->aspellConfig);
+		this->aspellConfig = NULL;
+	}
 }
 
 // Returns true if the word is misspelled
