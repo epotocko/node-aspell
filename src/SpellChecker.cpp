@@ -64,7 +64,7 @@ Napi::Value SpellChecker::isMisspelled(const Napi::CallbackInfo& info) {
 	Napi::Env env = info.Env();
 	Napi::HandleScope scope(env);
 
-	std::string word = info[0].As<Napi::String>();
+	std::string word = info[0].ToString().Utf8Value();
 	return Napi::Boolean::New(env, this->aspell->isMisspelled(word));
 }
 
@@ -72,7 +72,8 @@ Napi::Value SpellChecker::isMisspelledAsync(const Napi::CallbackInfo& info) {
 	Napi::Env env = info.Env();
 	Napi::HandleScope scope(env);
 
-	std::string word = info[0].As<Napi::String>();
+	std::string word = info[0].ToString().Utf8Value();
+
 	Napi::Function callback = info[1].As<Napi::Function>();
 	IsMisspelledWorker* worker = new IsMisspelledWorker(callback, this->aspell, word);
 	worker->Queue();
@@ -83,7 +84,7 @@ Napi::Value SpellChecker::getCorrectionsForMisspelling(const Napi::CallbackInfo&
 	Napi::Env env = info.Env();
 	Napi::HandleScope scope(env);
 
-	std::string word = info[0].As<Napi::String>();
+	std::string word = info[0].ToString().Utf8Value();
 	std::vector<std::string> suggestions = this->aspell->getCorrectionsForMisspelling(word);
 
 	// Convert vector to Napi::Array
@@ -100,7 +101,7 @@ Napi::Value SpellChecker::getCorrectionsForMisspellingAsync(const Napi::Callback
 	Napi::Env env = info.Env();
 	Napi::HandleScope scope(env);
 
-	std::string word = info[0].As<Napi::String>();
+	std::string word = info[0].ToString().Utf8Value();;
 	Napi::Function callback = info[1].As<Napi::Function>();
 	SuggestionsWorker* worker = new SuggestionsWorker(callback, this->aspell, word);
 	worker->Queue();
