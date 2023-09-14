@@ -4,7 +4,7 @@
 class IsMisspelledWorker : public Napi::AsyncWorker {
 
 	public:
-		IsMisspelledWorker(Napi::Function& callback, AspellWrapper* aspell, std::string& word);
+		IsMisspelledWorker(Napi::Function& callback, AspellWrapper* aspell, std::string word);
 		~IsMisspelledWorker();
 		void Execute();
 		void OnOK();

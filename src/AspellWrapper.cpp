@@ -33,6 +33,8 @@ AspellWrapper::~AspellWrapper() {
 
 // Returns true if the word is misspelled
 bool AspellWrapper::isMisspelled(const std::string word) {
+	// TODO: see if lock can be removed in async case by creating multiple spellChecker instances
+	std::lock_guard<std::mutex> lock(this->misspelledLock);
 	return aspell_speller_check(this->spellChecker, word.c_str(), -1) != 1;
 }
 

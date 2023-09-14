@@ -13,6 +13,7 @@ class AspellWrapper {
 		AspellConfig* aspellConfig;
 		AspellSpeller* spellChecker;
 		std::mutex correctionsLock;
+		std::mutex misspelledLock;
 
 	public:
 		AspellWrapper(const std::map<std::string, std::string>);

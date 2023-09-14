@@ -1,6 +1,6 @@
 #include "IsMisspelledWorker.h"
 
-IsMisspelledWorker::IsMisspelledWorker(Napi::Function& callback, AspellWrapper* aspell, std::string& word) : AsyncWorker(callback) {
+IsMisspelledWorker::IsMisspelledWorker(Napi::Function& callback, AspellWrapper* aspell, std::string word) : AsyncWorker(callback) {
 	this->aspell = aspell;
 	this->word = word;
 }

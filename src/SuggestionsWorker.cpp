@@ -1,6 +1,6 @@
 #include "SuggestionsWorker.h"
 
-SuggestionsWorker::SuggestionsWorker(Napi::Function& callback, AspellWrapper* aspell, std::string& word) : AsyncWorker(callback) {
+SuggestionsWorker::SuggestionsWorker(Napi::Function& callback, AspellWrapper* aspell, std::string word) : AsyncWorker(callback) {
 	this->aspell = aspell;
 	this->word = word;
 }
