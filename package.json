@@ -1,13 +1,19 @@
 {
   "name": "node-aspell",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Node.js bindings for aspell",
-	"keywords": ["aspell", "spell check", "spell checker"], 
+  "keywords": [
+    "aspell",
+    "spell check",
+    "spell checker"
+  ],
   "license": "LGPL-2.1-only",
-  "contributors": ["Eddie Potocko <epotocko@gmail.com>"],
+  "contributors": [
+    "Eddie Potocko <epotocko@gmail.com>"
+  ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/epotocko/node-aspell.git"
+    "type": "git",
+    "url": "https://github.com/epotocko/node-aspell.git"
   },
   "bugs": {
     "url": "https://github.com/epotocko/node-aspell/issues"
@@ -24,6 +30,6 @@
   },
   "devDependencies": {
     "mocha": "^6.2.1",
-    "node-gyp": "^6.0.0"
+    "node-gyp": "^9.4.0"
   }
 }

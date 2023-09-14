@@ -61,6 +61,18 @@ const checker = new SpellChecker.Spellchecker({
 const checker = new SpellChecker.Spellchecker("en_US");
 ```
 
+## Unit Tests
+
+Sample Dockerfile for running unit tests:
+```
+FROM node:xx
+RUN apt-get update && apt-get install -y aspell aspell-en aspell-es libaspell-dev
+COPY . /module
+WORKDIR /module
+RUN npm install && npm run-script build
+RUN npm test
+```
+
 ## Alternatives
 These packages spawn a separate aspell process and parse the output:
 
