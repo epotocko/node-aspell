@@ -2,7 +2,7 @@
 
 Native bindings to [aspell](http://aspell.net/) spell checking library for Node.js.
 
-Node.js v14 - v22 are compatible with this version of node-aspell
+Node.js v18+ are compatible with this version of node-aspell
 
 ## Installation
 ```bash
